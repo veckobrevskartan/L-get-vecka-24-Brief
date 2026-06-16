@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<title>Veckobrev vecka 24, 2026 | Svensk OSINT</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=IBM+Plex+Mono:wght@300;400;500&amp;family=IBM+Plex+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root{--ink:#0d0d0d;--paper:#f5f0e8;--paper-dk:#ece7de;--red:#c0392b;--gold:#b7924a;--gold-lt:#d4a96a;--muted:#7a7369;--border:#c8c0b0;--p:#2d5a8e;--m:#6b3fa0;--e:#1e7a56;--s:#c0392b;--i1:#9b5e1a;--i2:#1a6b8a;}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:15px;line-height:1.7;overflow-x:hidden;}
+  .topbar{background:var(--ink);color:var(--paper);padding:0 32px;display:flex;align-items:stretch;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;min-height:36px;}
+  .topbar-left{display:flex;align-items:center;gap:12px;}
+  .topbar-badge{background:var(--red);color:#fff;padding:2px 8px;font-size:9px;letter-spacing:0.16em;}
+  .topbar-right{display:flex;align-items:stretch;}
+  .topbar-date{display:flex;align-items:center;padding:0 13px;color:rgba(245,240,232,.3);font-size:9px;border-left:1px solid rgba(255,255,255,.08);}
+  .hero{background:linear-gradient(135deg,#0d0d0d 0%,#161310 60%,#0d0d0d 100%);color:var(--paper);padding:52px 32px 48px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.025) 39px,rgba(255,255,255,0.025) 40px);pointer-events:none;}
+  .hero-inner{max-width:860px;margin:0 auto;position:relative;z-index:2;}
+  .hero-copy{background:rgba(0,0,0,.55);border:1px solid rgba(183,146,74,.36);border-left:3px solid rgba(183,146,74,.62);padding:24px 28px 26px;box-shadow:0 18px 60px rgba(0,0,0,.5);max-width:720px;}
+  .hero-kicker{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#d4a96a;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+  .hero-kicker::after{content:'';display:block;height:1px;width:40px;background:var(--gold);opacity:0.5;}
+  h1{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,42px);font-weight:400;line-height:1.05;margin-bottom:14px;color:#fffaf0;}
+  h1 em{font-style:italic;color:var(--gold-lt);}
+  .hero-lead{font-size:13.5px;color:rgba(255,250,240,.9);line-height:1.72;}
+  .osint-tag{display:inline-flex;align-items:center;gap:7px;margin-top:16px;border:1px solid rgba(183,146,74,.72);background:rgba(0,0,0,.6);padding:4px 11px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:#e2bd77;}
+  .osint-tag::before{content:'◆';font-size:7px;}
+  .pmesii-nav{position:sticky;top:0;z-index:200;background:var(--paper-dk);border-bottom:1px solid var(--border);}
+  .nav-inner{width:min(100%,1180px);margin:0 auto;padding:0 24px;display:flex;justify-content:center;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .nav-inner::-webkit-scrollbar{display:none;}
+  .nav-link{display:flex;align-items:center;gap:6px;padding:10px 11px;font-family:'IBM Plex Mono',monospace;font-size:9.2px;letter-spacing:0.10em;text-transform:uppercase;text-decoration:none;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;flex-shrink:0;transition:color .2s,border-color .2s;}
+  .nav-link .pip{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+  .nav-link[data-d="sum"]:hover,.nav-link[data-d="sum"].on{color:var(--gold);border-color:var(--gold);}
+  .nav-link[data-d="p"]:hover,.nav-link[data-d="p"].on{color:var(--p);border-color:var(--p);}
+  .nav-link[data-d="m"]:hover,.nav-link[data-d="m"].on{color:var(--m);border-color:var(--m);}
+  .nav-link[data-d="e"]:hover,.nav-link[data-d="e"].on{color:var(--e);border-color:var(--e);}
+  .nav-link[data-d="s"]:hover,.nav-link[data-d="s"].on{color:var(--s);border-color:var(--s);}
+  .nav-link[data-d="i2"]:hover,.nav-link[data-d="i2"].on{color:var(--i2);border-color:var(--i2);}
+  .nav-link[data-d="i1"]:hover,.nav-link[data-d="i1"].on{color:var(--i1);border-color:var(--i1);}
+  .sum-section{padding:48px 32px 56px;background:var(--paper);border-bottom:1px solid rgba(200,192,176,.45);scroll-margin-top:48px;}
+  .sum-inner{max-width:860px;margin:0 auto;}
+  .sum-kicker{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  .sum-title{font-family:'Playfair Display',serif;font-size:clamp(18px,2.4vw,24px);font-weight:400;line-height:1.25;margin-bottom:18px;color:var(--ink);}
+  .sum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .sum-card{border-top:3px solid var(--gold);background:#fff;padding:16px 17px 18px;}
+  .sum-card-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+  .sum-card p{font-size:12px;line-height:1.7;color:#2a2520;}
+  .dom{padding:56px 32px 72px;scroll-margin-top:48px;border-top:1px solid rgba(200,192,176,.4);}
+  .dom-inner{max-width:860px;margin:0 auto;}
+  .dom-head{position:relative;max-width:860px;display:grid;grid-template-columns:52px 1fr;column-gap:20px;align-items:start;padding:28px 30px 30px;margin:0 auto 24px;background:rgba(255,253,248,.96);border:1px solid rgba(185,176,160,.98);border-left:3px solid var(--dom-accent);box-shadow:0 10px 32px rgba(58,48,34,.13),0 1px 0 rgba(255,255,255,.82) inset;}
+  .dom-letter{font-family:'Playfair Display',serif;font-size:68px;line-height:.88;font-weight:700;opacity:.12;color:#0d0d0d;grid-row:1/span 3;align-self:center;}
+  .dom-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.26em;text-transform:uppercase;margin-bottom:6px;font-weight:500;color:var(--dom-accent);}
+  .dom-title{font-family:'Playfair Display',serif;font-size:clamp(17px,2.2vw,22px);font-weight:400;line-height:1.25;margin-bottom:12px;color:#0d0d0d;max-width:720px;}
+  .dom-brief{font-size:13px;line-height:1.76;color:#1a1510;border-left:2px solid var(--dom-accent);padding:12px 15px;max-width:700px;background:rgba(255,255,255,.72);}
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;}
+  .card{position:relative;background:rgba(255,255,255,.97);border:1px solid rgba(204,197,185,.98);border-top:none;padding:16px 18px 34px;text-decoration:none;display:block;overflow:hidden;transition:background .15s,box-shadow .15s,transform .12s;box-shadow:0 2px 8px rgba(0,0,0,.065);}
+  .card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--dom-accent);}
+  .card:hover{background:rgba(248,245,239,.98);box-shadow:0 4px 16px rgba(0,0,0,.09);transform:translateY(-2px);}
+  .card-geo{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:7px;color:var(--dom-accent);}
+  .card-title{font-size:12.5px;font-weight:500;color:#0d0d0d;line-height:1.43;margin-bottom:7px;}
+  .card-desc{font-size:11.5px;color:#2a2520;line-height:1.64;}
+  .card-arrow{position:absolute;bottom:11px;right:13px;font-family:'IBM Plex Mono',monospace;font-size:11px;opacity:.18;transition:opacity .2s,transform .2s;}
+  .card:hover .card-arrow{opacity:.55;transform:translate(2px,-2px);}
+  footer{background:#0d0d0d;color:#f5f0e8;border-top:1px solid rgba(183,146,74,.32);}
+  .footer-inner{max-width:860px;margin:0 auto;padding:24px 32px 8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+  .footer-brand{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-lt);}
+  .footer-note{font-size:10.5px;color:rgba(245,240,232,.55);}
+  .footer-note a{color:var(--gold-lt);text-decoration:none;}
+  .footer-disc{max-width:860px;margin:0 auto;padding:8px 32px 24px;font-size:10px;color:rgba(245,240,232,.4);line-height:1.6;}
+  @media(min-width:1180px){.nav-link{padding:11px 14px;font-size:9.5px;letter-spacing:0.12em;}}
+  @media(max-width:900px){.nav-inner{justify-content:flex-start;padding:0 18px;}.nav-link{padding:10px 10px;font-size:8.8px;letter-spacing:0.08em;}}
+  @media(max-width:700px){.sum-grid{grid-template-columns:1fr;}.dom-head{grid-template-columns:1fr;padding:20px 22px;}.dom-letter{display:none;}.card-grid{grid-template-columns:1fr;}.nav-inner{padding:0 14px;}.nav-link{font-size:8.4px;gap:5px;}}
+</style>
+</head>
+<body>
+<div class="topbar">
+<div class="topbar-left"><span>Svensk OSINT</span><span class="topbar-badge">Veckobrev</span></div>
+<div class="topbar-right">
+<div class="topbar-date">Vecka 24 · 2026</div>
+</div>
+</div>
+<div class="hero">
+<div class="hero-inner">
+<div class="hero-copy">
+<h1>Veckobrev<br/><em>Vecka 24, 2026</em></h1>
+<p class="hero-lead">Sammanställning av veckans händelser från öppna källor, perioden 8–14 juni 2026. Materialet är ordnat enligt PMESII-modellen: politiskt, militärt, ekonomiskt, socialt, information och infrastruktur. Fokus ligger på Sverige, Norden, Europa, Ukraina och övriga världen.</p>
+<div class="osint-tag">Öppna källor</div>
+</div>
+</div>
+</div>
+<nav class="pmesii-nav"><div class="nav-inner">
+<a class="nav-link" data-d="sum" href="#sum"><span class="pip" style="background:var(--gold)"></span>Sammanfattning</a>
+<a class="nav-link" data-d="p" href="#pol"><span class="pip" style="background:var(--p)"></span>Politik</a>
+<a class="nav-link" data-d="m" href="#mil"><span class="pip" style="background:var(--m)"></span>Militärt</a>
+<a class="nav-link" data-d="e" href="#eko"><span class="pip" style="background:var(--e)"></span>Ekonomi</a>
+<a class="nav-link" data-d="s" href="#soc"><span class="pip" style="background:var(--s)"></span>Samhälle</a>
+<a class="nav-link" data-d="i2" href="#ino"><span class="pip" style="background:var(--i2)"></span>Information</a>
+<a class="nav-link" data-d="i1" href="#inf"><span class="pip" style="background:var(--i1)"></span>Infrastruktur</a>
+</div></nav>
+<main>
+
+<!-- SAMMANFATTNING -->
+<div class="sum-section" id="sum"><div class="sum-inner">
+<div class="sum-kicker">Sammanfattning · vecka 24</div>
+<div class="sum-title">Skärpt svensk lägesbild, rysk basutbyggnad i norr och sanktionsnätet sluts allt tätare kring skuggflottan</div>
+<div class="sum-grid">
+<div class="sum-card">
+<div class="sum-card-label">Sverige</div>
+<p>Försvarsberedningens nya delrapport slår fast att säkerhetsläget inte längre kan betraktas som tillfälligt försämrat. Två svenska Gripeninsatser mot ryskt stridsflyg, ett spionåtal vid Stockholms tingsrätt, en GPS-störning utanför Varberg och en utredning om tvångsinlösen av fastigheter nära känslig infrastruktur visar bredden i det inhemska säkerhetstrycket.</p>
+</div>
+<div class="sum-card">
+<div class="sum-card-label">Norden och Östersjön</div>
+<p>Satellitgranskning visar omfattande rysk militär basutbyggnad nära Finland och Norge, med en bedömd ökning av ryska förband från 20 000 till 80 000 soldater i närområdet. Nato etablerar Forward Land Forces Finland med Sverige som ramnation. Skuggflottefartyg, kabelsabotage i Finland och en bordning av oljetankern SMYRTOS i brittiskt vatten understryker den maritima sårbarheten.</p>
+</div>
+<div class="sum-card">
+<div class="sum-card-label">Ukraina och sanktioner</div>
+<p>Ukrainska drönare slog mot Rosnefts raffinaderikluster i Samara samtidigt som SBU avslöjade flera ryska agentnätverk, inklusive rekrytering av minderåriga. Flera europeiska domar och beslag, från Belgien till Georgien, visar hur sanktionskringgående och rysk underrättelseverksamhet vävs samman över landgränser.</p>
+</div>
+</div>
+</div></div>
+
+<!-- P · POLITISKT -->
+<div class="dom" id="pol"><div class="dom-inner" style="--dom-accent:var(--p)">
+<div class="dom-head">
+<div class="dom-letter">P</div>
+<div>
+<div class="dom-label">Politik och beslut</div>
+<div class="dom-title">Försvarsberedningen skärper tonen, regeringen vill kunna tvångsinlösa fastigheter och ny lag mot gängrekrytering av barn</div>
+<div class="dom-brief">Veckans politiska beslut i Sverige rör genomgående förstärkt säkerhetsskydd och totalförsvar. Försvarsberedningens nya delrapport konstaterar att ett väpnat angrepp mot Sverige eller allierade inte kan uteslutas och pekar ut materiel, infrastruktur och säkerhetsskydd som flaskhalsar i upprustningen. Regeringen vill samtidigt kunna tvångsinlösa redan ägda fastigheter nära känslig infrastruktur, ge fler myndigheter rätt att bekämpa hotande drönare och ge polisen befogenhet att snabbt kräva bort gängens rekryteringsinnehåll riktat mot barn. I Europa diskuterar Nato inför toppmötet i Ankara att ge SACEUR utökat mandat mot drönarhot, medan Frankrike och Tyskland övergett den gemensamma stridsflygutvecklingen inom FCAS.</div>
+</div>
+</div>
+<div class="card-grid">
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7471126808994705409" rel="noopener" target="_blank">
+<div class="card-geo">Sverige · Totalförsvar</div>
+<div class="card-title">Försvarsberedningen: säkerhetsläget är varaktigt försämrat</div>
+<div class="card-desc">Rapporten slår fast att ett väpnat angrepp mot Sverige eller allierade inte kan uteslutas, med Ryssland som dimensionerande hot. Den skarpaste varningen gäller flaskhalsar i materiel, infrastruktur och säkerhetsskydd som riskerar att bromsa upprustningens tempo.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_regeringen-vill-tv%C3%A5ngsk%C3%B6pa-misst%C3%A4nkta-spioners-activity-7469476876764205056-GYUQ" rel="noopener" target="_blank">
+<div class="card-geo">Sverige · Säkerhetsskydd</div>
+<div class="card-title">Regeringen vill kunna tvångsinlösa fastigheter nära känslig infrastruktur</div>
+<div class="card-desc">Förslaget siktar på redan ägda fastigheter och går längre än reglerna om säkerhetsskyddsbedömning vid förvärv som trädde i kraft 1 juli. Försvarsminister Pål Jonson hänvisar till aktiv rysk krigsplanläggning mot Sverige. Utredningen redovisas senast 15 mars 2027.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7470893711812464640" rel="noopener" target="_blank">
+<div class="card-geo">Sverige · Barnsäkerhet</div>
+<div class="card-title">Sverige kan bli först i EU med snabb borttagningsplikt mot gängrekrytering</div>
+<div class="card-desc">Lagen ger polisen befogenhet att kräva att plattformar tar bort rekryteringsinnehåll riktat mot barn inom en timme, med sanktionsavgifter på upp till fem miljoner kronor. Lagen väntas träda i kraft 15 juli och kompletterar ett bredare paket mot gängens nätrekrytering.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_fler-myndigheter-kan-f%C3%A5-skjuta-ner-dr%C3%B6nare-activity-7471438693145313281-fkzR" rel="noopener" target="_blank">
+<div class="card-geo">Sverige · Drönarbekämpning</div>
+<div class="card-title">Utredning ska ge fler myndigheter rätt att bekämpa hotande drönare</div>
+<div class="card-desc">I dag har bara Försvarsmakten och Polismyndigheten mandat att ingripa. Uppdraget täcker både nedskjutning och elektronisk bekämpning, och Kustbevakningen nämns som möjlig aktör. Redovisning senast 8 oktober 2027.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_nato-mulls-elevating-command-authority-to-activity-7471440541021364224-mb-G" rel="noopener" target="_blank">
+<div class="card-geo">Nato · Befälsordning</div>
+<div class="card-title">Nato diskuterar utökat SACEUR-mandat mot drönarhot</div>
+<div class="card-desc">Förslaget skulle ge överbefälhavaren större frihet att flytta resurser, höja beredskap och integrera luftvärn med stridsflyg utan att vänta på nationella beslut. Rumänska begränsningar lyfts som exempel på varför en tydligare befälsordning behövs.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_france-germany-unable-to-continue-fighter-activity-7470058121630199808-btMg" rel="noopener" target="_blank">
+<div class="card-geo">Frankrike · Tyskland · Försvarsindustri</div>
+<div class="card-title">Frankrike och Tyskland överger gemensam stridsflygsutveckling inom FCAS</div>
+<div class="card-desc">Industrikonflikten mellan Dassault och Airbus om ledarskap och teknikdelning, kombinerat med skilda militära krav, gör att Macron och Merz dragit slutsatsen att parterna inte längre kan enas. Delar av konceptet, som Combat Cloud, lever vidare separat.</div>
+<div class="card-arrow">↗</div>
+</a>
+</div>
+</div></div>
+
+<!-- M · MILITÄRT -->
+<div class="dom" id="mil"><div class="dom-inner" style="--dom-accent:var(--m)">
+<div class="dom-head">
+<div class="dom-letter">M</div>
+<div>
+<div class="dom-label">Militärt och underrättelse</div>
+<div class="dom-title">Rysk basutbyggnad i norr, svenska Gripeninsatser och NATO:s första drönarnedskjutning över Baltikum</div>
+<div class="dom-brief">Veckans militära bild domineras av rysk styrkeuppbyggnad nära Sveriges och Finlands gränser. Satellitgranskning visar pågående infrastrukturutbyggnad vid flera platser, och Finlands arméchef bedömer att antalet ryska soldater i närområdet kan fyrdubblas. Nato har som motdrag etablerat Forward Land Forces Finland med Sverige som ramnation. I Östersjöregionen genomförde svensk incidentberedskap två Gripeninsatser mot ryskt stridsflyg, medan franska Rafale-plan inom Baltic Air Policing för första gången sköt ned en drönare över lettiskt territorium efter misstänkt rysk elektromagnetisk störning. Storbritannien genomförde samtidigt sin första egenledda bordning av ett skuggflottefartyg.</div>
+</div>
+</div>
+<div class="card-grid">
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_ryssland-rustar-upp-l%C3%A4ngs-gr%C3%A4nsen-mot-norra-activity-7470472061694410752-8xcP" rel="noopener" target="_blank">
+<div class="card-geo">Ryssland · Nordkalotten</div>
+<div class="card-title">Satellitbilder visar rysk basutbyggnad nära Finland och Norge</div>
+<div class="card-desc">Finlands arméchef bedömer att antalet ryska soldater i Nordens och Baltikums närhet kan öka från cirka 20 000 till 80 000. Must-chefen beskriver det som förmågeskapande infrastruktur avsedd att fyllas med förband efter kriget i Ukraina. Nato etablerade som motdrag Forward Land Forces Finland den 6 juni.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_dubbla-insatser-mot-ryska-stridsflyg-activity-7471467066731012096-AH0A" rel="noopener" target="_blank">
+<div class="card-geo">Sverige · Östersjön</div>
+<div class="card-title">Svenska Gripenplan mötte ryska stridsflyg vid två separata tillfällen</div>
+<div class="card-desc">Incidentberedskapen ingrep mot ryska Su-24 och Su-34 nära svenskt luftrum i södra respektive norra Östersjön under fredagen, med allierat stridsflyg som lyfte parallellt. Försvarsmakten beskriver agerandet som allvarligt och återkommande.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7469832616620253185" rel="noopener" target="_blank">
+<div class="card-geo">Lettland · Luftpolicing</div>
+<div class="card-title">Franska Rafale sköt ned drönare i lettiskt luftrum efter misstänkt rysk störning</div>
+<div class="card-desc">Drönaren, som ännu inte offentligt identifierats som rysk, kom in över Latgale nära gränsen mot Ryssland till följd av elektromagnetisk krigföring. Händelsen är den första av sitt slag inom Baltic Air Policing.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7471848037661941761" rel="noopener" target="_blank">
+<div class="card-geo">Storbritannien · Skuggflottan</div>
+<div class="card-title">Royal Marine Commandos genomförde Storbritanniens första egenledda bordning av skuggflottefartyg</div>
+<div class="card-desc">Oljetankern SMYRTOS, seglande under Kameruns flagg, bordades i brittiskt territorialvatten med stöd av Chinook-, Merlin- och Wildcat-helikoptrar samt två fregatter. Operationen följer på franska och svenska bordningar i maj.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7471602480674664448" rel="noopener" target="_blank">
+<div class="card-geo">Norska havet · Ubåtsjakt</div>
+<div class="card-title">HMS Prince of Wales i Nato-övning Dynamic Mongoose, ryskt underrättelsefartyg observerat</div>
+<div class="card-desc">Övningen genomfördes inom ramen för Natos nylanserade Arctic Sentry. Det ryska underrättelsefartyget Yury Ivanov observerades nära övningen och följdes av en portugisisk fregatt, samtidigt som norsk underrättelsetjänst varnar för ökad kartläggning av kustnära infrastruktur.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_estonian-experts-warn-of-risks-as-us-eyes-activity-7471611799981879297-_T2A" rel="noopener" target="_blank">
+<div class="card-geo">Estland · USA · Nato</div>
+<div class="card-title">Estniska experter varnar för tidsglapp vid minskad amerikansk närvaro i Europa</div>
+<div class="card-desc">USA planerar minska antalet F-16/F-15E tillgängliga för Nato i Europa från 150 till 100, halvera marin spaningskapacitet och dra bort samtliga åtta lufttankningsflyg. Lufttankning och marin patrullering lyfts som särskilt svårersatta förmågor.</div>
+<div class="card-arrow">↗</div>
+</a>
+</div>
+</div></div>
+
+<!-- E · EKONOMISKT -->
+<div class="dom" id="eko"><div class="dom-inner" style="--dom-accent:var(--e)">
+<div class="dom-head">
+<div class="dom-letter">E</div>
+<div>
+<div class="dom-label">Ekonomi och sanktioner</div>
+<div class="dom-title">Irländsk alumina i rysk försvarsindustri, certifikatåterkallelser mot ryska domäner och fortsatt rysk LNG-import</div>
+<div class="dom-brief">Veckans ekonomiska bild domineras av nya granskningar av hur sanktionerade och formellt icke-sanktionerade varor fortsätter nå rysk industri. Irländsk alumina via Rusal-ägt raffinaderi har enligt granskningar sålts vidare till rysk försvarsindustri för stora belopp, trots att materialet inte omfattas av exportförbudet. GlobalSign har börjat återkalla SSL/TLS-certifikat för tiotusentals ryska domäner efter skärpta sanktionskontrollkrav, vilket redan skapar driftproblem för ryska banker. Samtidigt visar ny statistik att EU:s import av rysk LNG fortsatte öka i maj trots ett nytt förbud mot kortfristiga kontrakt, med Spanien som drivande.</div>
+</div>
+</div>
+<div class="card-grid">
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_cso-export-figures-on-aughinish-alumina-shipments-activity-7469453629159038976-EIcN" rel="noopener" target="_blank">
+<div class="card-geo">Irland · Ryssland · Sanktioner</div>
+<div class="card-title">Irländsk alumina från Rusal-ägt raffinaderi pekas ut i rysk försvarsindustrikedja</div>
+<div class="card-desc">Aluminium från det irländska raffinaderiet Aughinish ska enligt granskningar ha sålts vidare till rysk försvarsindustri för 337 miljoner dollar under statliga försvarskontrakt. Handeln bryter inte nödvändigtvis mot EU:s sanktioner eftersom alumina inte omfattas av exportförbudet.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_globalsign-%D0%BD%D0%B0%D1%87%D0%B0%D0%BB-%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%D0%B0%D1%82%D1%8C-ssl-%D1%81%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%D1%8B-activity-7471613592015007744-ub_n" rel="noopener" target="_blank">
+<div class="card-geo">Ryssland · Digital infrastruktur</div>
+<div class="card-title">GlobalSign återkallar SSL-certifikat för tiotusentals ryska domäner</div>
+<div class="card-desc">Skärpta CA/Browser Forum-krav om sanktionskontroll gör att 15 000–20 000 ryska domäner berörs. Ryska banker som T-Bank och Rosselchozbank varnar redan kunder för inloggningsproblem, medan ryska myndigheter hänvisar till inhemska certifikat som inte är betrodda i västerländska webbläsare.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7471124154084409344" rel="noopener" target="_blank">
+<div class="card-geo">EU · Energi</div>
+<div class="card-title">EU:s import av rysk LNG ökade i maj trots nytt kontraktsförbud</div>
+<div class="card-desc">Importen ökade med 4 procent jämfört med april, drivet av att Spanien fördubblade sin import. Under 2025 betalade EU-länder 6,7 miljarder euro för rysk LNG. Endast Tyskland har formellt pressat sin importör att pröva att åberopa force majeure för att lämna avtal tidigare.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7470859199405686784" rel="noopener" target="_blank">
+<div class="card-geo">Belgien · Sanktionsbrott</div>
+<div class="card-title">GRU-kopplad affärsman döms i Belgien för export till Ryssland</div>
+<div class="card-desc">Viktor Labin dömdes till fem års fängelse för kringgående av sanktioner och export av yttriumoxid och annan teknik med möjlig militär användning till Ryssland via mellanbolag. Hans son dömdes i sin frånvaro till sex år. USA sanktionslistade nätverket i maj 2024.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7471877263240613888" rel="noopener" target="_blank">
+<div class="card-geo">Georgien · USA · Sanktionsbrott</div>
+<div class="card-title">Rysk medborgare gripen i Georgien på FBI-begäran för flygdelsleveranser</div>
+<div class="card-desc">Tatjana Kurashkevich grips misstänkt för sanktionsbrott, kriminell konspiration och penningtvätt kopplat till leveranser av flygplansdelar till Ryssland efter invasionen. Ett utlämningsförfarande till USA inleds.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7469829652413374464" rel="noopener" target="_blank">
+<div class="card-geo">Grekland · Sydkorea · Försvarsindustri</div>
+<div class="card-title">Grekland och Sydkorea bygger regional nod för militär fartygsbyggnation</div>
+<div class="card-desc">ONEX Shipyards och Hanwha Ocean investerar 1,35 miljarder euro i varven i Elefsina och Syros, med möjlig fregattleverans 2031 och ubåt 2034, som del av Greklands bredare upprustning på över 25 miljarder euro fram till 2036.</div>
+<div class="card-arrow">↗</div>
+</a>
+</div>
+</div></div>
+
+<!-- S · SOCIALT -->
+<div class="dom" id="soc"><div class="dom-inner" style="--dom-accent:var(--s)">
+<div class="dom-head">
+<div class="dom-letter">S</div>
+<div>
+<div class="dom-label">Samhälle och brottslighet</div>
+<div class="dom-title">Knivattack utlöser rasistiska upplopp i Belfast, vapendrama vid riksdagen och dom i Polarica-fallet</div>
+<div class="dom-brief">Veckans samhällshändelser rymmer både akuta säkerhetsincidenter och rättsliga avgöranden. En knivattack i norra Belfast utlöste en våg av digitalt förstärkta upplopp riktade mot etniska minoriteter, med dokumenterad inblandning av utländska agitatorer och extremistnätverk. I Sverige greps en man utanför riksdagshuset misstänkt för att ha försökt ta ett vapen från en skyddsvakt, och en terrordömd student fick fortsätta sina studier vid KTH efter domstolsbeslut. I Finland dömdes en tidigare vd för människohandel kopplat till thailändska bärplockare, ett fall som berör hela den nordiska försörjningskedjan.</div>
+</div>
+</div>
+<div class="card-grid">
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7470445960712822785" rel="noopener" target="_blank">
+<div class="card-geo">Nordirland · Belfast</div>
+<div class="card-title">Knivattack utlöste rasistiska upplopp riktade mot minoriteter</div>
+<div class="card-desc">Efter att grafiskt videomaterial och uppgifter om den misstänktes migrationsstatus spreds via profiler med stor räckvidd urartade situationen i flera kvällars gatuvåld. Tolv poliser skadades och 16 greps, och 27 personer uppges ha blivit hemlösa.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_the-x-factor-how-foreign-agitators-helped-activity-7471491345849831424-Pgtw" rel="noopener" target="_blank">
+<div class="card-geo">Nordirland · Digital mobilisering</div>
+<div class="card-title">PSNI: betydande digital samordning bakom Belfast-upploppen</div>
+<div class="card-desc">Aktörer både inom och utanför Irland samordnade spridningen, och Active Club-nätverket spred instruktioner om maskering för att undvika identifiering. Nordirland hade under perioden de högsta nivåerna av rasistiskt motiverade incidenter sedan mätningarna startade 2004.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_09-juni-1138-vapenlagen-stockholm-polismyndigheten-activity-7470150248246497281-cPv0" rel="noopener" target="_blank">
+<div class="card-geo">Sverige · Stockholm</div>
+<div class="card-title">Man gripen efter vapendrama utanför riksdagen</div>
+<div class="card-desc">Mannen, i 40-årsåldern, misstänks ha försökt ta ett vapen från en skyddsvakt och brottnades ned innan polis med förstärkningsvapen anlände. Motivet är okänt och brottsrubriceringen var vid publicering inte fastställd.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_domstolen-avsl%C3%A5r-terrord%C3%B6md-f%C3%A5r-forts%C3%A4tta-activity-7471435097427288064-elMP" rel="noopener" target="_blank">
+<div class="card-geo">Sverige · KTH</div>
+<div class="card-title">Terrordömd student får fortsätta läsa kemi efter domstolsbeslut</div>
+<div class="card-desc">Förvaltningsrätten avslog KTH:s överklagande av Högskolans avskiljandenämnds beslut. Domstolen lade vikt vid att brotten begicks för flera år sedan och att ingen återfallsrisk påvisats, eftersom svensk rätt kräver en framåtblickande riskbedömning.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7469744931767627776" rel="noopener" target="_blank">
+<div class="card-geo">Finland · Människohandel</div>
+<div class="card-title">Polarica-dom blottar risker i nordisk bärindustri</div>
+<div class="card-desc">Bolagets tidigare vd döms för människohandel i 78 fall rörande thailändska bärplockare. Bolaget åläggs en företagsbot på 150 000 euro och cirka 500 000 euro i ersättning. Domen berör hela den nordiska försörjningskedjan eftersom bolaget har verksamhet i Sverige, Finland och Polen.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7471175358407426048" rel="noopener" target="_blank">
+<div class="card-geo">Storbritannien · Bolton</div>
+<div class="card-title">Misstänkt brandattentat mot imamfamiljs hem i Bolton</div>
+<div class="card-desc">En maskerad person antände fasaden med brännbar vätska. Samtliga i bostaden evakuerades utan fysiska skador. Polisen ser ingen bekräftad koppling till oroligheterna i Nordirland, men händelsen sker i ett läge med ökade religiösa hatbrott i England och Wales.</div>
+<div class="card-arrow">↗</div>
+</a>
+</div>
+</div></div>
+
+<!-- I · INFORMATION -->
+<div class="dom" id="ino"><div class="dom-inner" style="--dom-accent:var(--i2)">
+<div class="dom-head">
+<div class="dom-letter">I</div>
+<div>
+<div class="dom-label">Information och påverkan</div>
+<div class="dom-title">Israelkopplat bolag misstänks för fransk valpåverkan, läcka blottar rysk PR-miljö och Tommy Robinsons Moskvaresa</div>
+<div class="dom-brief">Veckans informationsrelaterade händelser visar både statlig och privat påverkansverksamhet. Franska Viginum misstänker att ett israelbaserat bolag låg bakom en digital kampanj riktad mot vänsterkandidater inför kommunalvalen, med tekniska spår som pekar mot ursprunget. En läcka från VK Teams kopplar samman Kremls presidentadministration, en sanktionerad PR-byrå och konkreta vandaliseringsaktioner i flera europeiska städer. Tommy Robinsons resa till Moskva under Belfastoroligheterna, där han delade material från ett ryskt ultranationalistiskt nätverk, illustrerar hur lokala konflikter kan förstärkas av utländsk informationspåverkan utan att ett direkt uppdrag kan beläggas.</div>
+</div>
+</div>
+<div class="card-grid">
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_une-soci%C3%A9t%C3%A9-isra%C3%A9lienne-probablement-%C3%A0-activity-7471143679257223168-etpN" rel="noopener" target="_blank">
+<div class="card-geo">Frankrike · Valpåverkan</div>
+<div class="card-title">Viginum misstänker israelbaserat bolag bakom kampanj mot LFI-kandidater</div>
+<div class="card-desc">Kampanjen Rokh Solis använde falska konton och samordnad spridning för att koppla partiet till islamism, med hebreiska tecken i metadata som tekniskt spår. Liknande metoder ska enligt Viginums chef ha identifierats i Skottland, New York, Angola och Togo.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_leak-enth%C3%BCllt-wie-kreml-geheimdienst-und-activity-7471510613488349184-1hep" rel="noopener" target="_blank">
+<div class="card-geo">Europa · Påverkansoperationer</div>
+<div class="card-title">Läckt material kopplar Kremls presidentadministration till konkreta vandaliseringsaktioner</div>
+<div class="card-desc">Materialet kopplas till Social Design Agency och konkreta aktioner: plastskelett vid Brandenburger Tor, grön färg mot judiska mål i Paris och svinhuvuden utanför moskéer. Serbiska medborgare uppges ha rekryterats med löfte om 500–1 500 euro per uppdrag.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7470895173082796033" rel="noopener" target="_blank">
+<div class="card-geo">Ryssland · Storbritannien</div>
+<div class="card-title">Tommy Robinsons Moskvaresa väcker frågor om rysk förstärkning av brittiska oroligheter</div>
+<div class="card-desc">Robinson delade under resan material från ett ryskt ultranationalistiskt nätverk kopplat till en sanktionerad oligark. Inget i källorna belägger ett direkt uppdrag, men resan och spridningen sammanföll med en snabb internationell förstärkning av Belfastoroligheterna.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_strategic-communications-in-goverment-activity-7471459222220693504-uBKA" rel="noopener" target="_blank">
+<div class="card-geo">Nato · Strategisk kommunikation</div>
+<div class="card-title">NATO StratCom COE: kommunikation måste byggas in i ledning, inte bara en avdelning</div>
+<div class="card-desc">Rapporten identifierar tre hinder för effektiv statlig kommunikation och lyfter Finlands statsrådskansli och Ukrainas One Voice-arbete som exempel. Modellen pekar på ledarskap, organisation och integrerade processer som nödvändiga byggstenar.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_us-seizes-alleged-china-linked-sites-targeting-activity-7470563002157797377-R8KY" rel="noopener" target="_blank">
+<div class="card-geo">USA · Kontraspionage</div>
+<div class="card-title">USA beslagtar domäner kopplade till misstänkt kinesisk rekrytering av säkerhetsprövade</div>
+<div class="card-desc">Falska konsultbolag med AI-genererade profiler och kryptovalutabetalningar användes för att rikta in sig mot personer med säkerhetsklassad information. Five Eyes varnade tidigare i veckan för liknande metoder via LinkedIn, Indeed och Upwork.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7470749446721597440" rel="noopener" target="_blank">
+<div class="card-geo">Sverige · Övervakningsdebatt</div>
+<div class="card-title">Kritik mot AI-baserad realtidsövervakning av kamerabilder</div>
+<div class="card-desc">Debattartikeln varnar för en principiell övergång från riktad övervakning av misstänkta till bred befolkningsövervakning, och kopplar samman frågan med EU:s förslag om meddelandeskanning, Chat Control.</div>
+<div class="card-arrow">↗</div>
+</a>
+</div>
+</div></div>
+
+<!-- I · INFRASTRUKTUR -->
+<div class="dom" id="inf"><div class="dom-inner" style="--dom-accent:var(--i1)">
+<div class="dom-head">
+<div class="dom-letter">I</div>
+<div>
+<div class="dom-label">Infrastruktur och försörjning</div>
+<div class="dom-title">GPS-störning utanför Varberg, skuggflottetanker i Arktis och misstänkt sabotage mot kabelschakt i Finland</div>
+<div class="dom-brief">Veckans infrastrukturhändelser visar sårbarheten i både svensk och nordisk kritisk infrastruktur. Kustbevakningen noterade en GPS-störning utanför Varberg som nu utreds, i ett läge där Transportstyrelsen rapporterar en kraftig ökning av GNSS-störningar i Östersjöområdet. En ny rapport från Nordic Energy Research varnar för att Nordens energisystem, med sitt täta kluster av elförbindelser och gasledningar i Östersjön samt Hammerfest LNG i Arktis, är strukturellt sårbart för sabotage. I Finland utreds en brand i ett kabelschakt i Vanda som misstänkt grovt sabotage efter att ha slagit ut internet och kabel-tv för 2 000 personer, och en sanktionerad skuggflottetanker observerades på väg in i norska arktiska farvatten.</div>
+</div>
+</div>
+<div class="card-grid">
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7471889659187388416" rel="noopener" target="_blank">
+<div class="card-geo">Sverige · Varberg</div>
+<div class="card-title">GPS-störning utanför Varberg polisanmäld och utreds</div>
+<div class="card-desc">En patrull från Kustbevakningen noterade störningen den 10 juni. En finsk man och en rysk kvinna frihetsberövades nära platsen men släpptes efter förhör utan fastställd brottsrubricering. Transportstyrelsen rapporterar en kraftig ökning av GNSS-störningar i Östersjöområdet sedan slutet av 2023.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_energy-security-report-reveals-arctic-pain-activity-7471442596062564352-aDXL" rel="noopener" target="_blank">
+<div class="card-geo">Norden · Energisäkerhet</div>
+<div class="card-title">Rapport varnar för sårbart nordiskt energisystem i Östersjön och Arktis</div>
+<div class="card-desc">Ett tätt kluster av elförbindelser och gasledningar i Östersjön gör att en enda ankardragning kan slå ut flera system, medan Hammerfest LNG på Melkøya pekas ut som Arktis tydligaste enskilda felpunkt. Rapporten efterlyser bredare nordisk samordning och starkare fysiskt skydd.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_erikoisesta-tulipalosta-uutta-tietoa-vantaalla-activity-7470030924647411712-lmcQ" rel="noopener" target="_blank">
+<div class="card-geo">Finland · Vanda</div>
+<div class="card-title">Brand i kabelschakt i Vanda bedöms ha varit anlagd</div>
+<div class="card-desc">Polisen utreder branden som misstänkt grovt sabotage och grov störning av telekommunikation efter att internet och kabel-tv slagits ut för omkring 2 000 personer. Händelsen sker i ett läge där Finland aktivt stärker skyddet av kommunikationsnät som samhällskritisk infrastruktur.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/posts/svensk-osint_shadow-tanker-involved-in-deceptive-high-risk-activity-7471445732261089281-R900" rel="noopener" target="_blank">
+<div class="card-geo">Norge · Arktis</div>
+<div class="card-title">Sanktionerad skuggflottetanker på väg in i norska arktiska farvatten</div>
+<div class="card-desc">VAYU 1 har bytt flaggstat nio gånger sedan 2023 och haft okänd ISM-manager. Över 120 sanktionerade fartyg har seglat längs den norska kusten sedan september 2025, vilket gör frågan till en löpande norsk miljö- och sjösäkerhetsrisk.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7469709974974164992" rel="noopener" target="_blank">
+<div class="card-geo">Tyskland · Reutlingen</div>
+<div class="card-title">Brand i transformatorstation slog ut elförsörjning för 20 000 kunder</div>
+<div class="card-desc">Branden i Reutlingen-West påverkade telefoni, trafikljus och sjukvård. Nätoperatören uppger att tre separata brandhärdar hittades och att stängsel och mark var skadade, men polisen utreder fortfarande tekniskt fel och avsiktlig brandläggning parallellt.</div>
+<div class="card-arrow">↗</div>
+</a>
+<a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7469743604014678016" rel="noopener" target="_blank">
+<div class="card-geo">Sverige · Hästveda</div>
+<div class="card-title">Brand i försvarsanläggning i Hästveda – personal evakuerades</div>
+<div class="card-desc">All personal evakuerades och räddningstjänsten uppgav att branden var under kontroll. Försvarsmakten har inte bekräftat vilken anläggning som berörs, och kopplingen till den kända luftbevaknings- och stridsledningsmiljön Cobra i Hästveda är inte fastställd.</div>
+<div class="card-arrow">↗</div>
+</a>
+</div>
+</div></div>
+
+</main>
+<footer>
+<div class="footer-inner">
+<div class="footer-brand">Svensk OSINT</div>
+<div class="footer-note">Veckobrev · vecka 24, 2026</div>
+<div class="footer-note"><a href="https://www.linkedin.com/company/svensk-osint" rel="noopener" target="_blank">LinkedIn ↗</a></div>
+</div>
+<div class="footer-disc">Samtliga uppgifter baseras på öppna källor som har hämtats in under vecka 24, 2026 (8–14 juni). PMESII står för politiskt, militärt, ekonomiskt, socialt, information och infrastruktur. Vill du läsa fler analyser och veckans samlade omvärldsbevakning, följ Svensk OSINT:s veckobrev och LinkedIn-sida.</div>
+</footer>
+<script>
+  const _s=['sum','pol','mil','eko','soc','ino','inf'];
+  const _l=document.querySelectorAll('.nav-link');
+  const _o=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const i=_s.indexOf(e.target.id);_l.forEach(l=>l.classList.remove('on'));if(i>=0&&_l[i])_l[i].classList.add('on');}});},{rootMargin:'-15% 0px -65% 0px'});
+  _s.forEach(id=>{const el=document.getElementById(id);if(el)_o.observe(el);});
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}});});
+</script>
+</body>
+</html>
